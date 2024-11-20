@@ -85,7 +85,7 @@ const createProductList = () => {
 
         // Add product price
         const productPrice = document.createElement("p");
-        productPrice.textContent = `$${product.price}`;
+        productPrice.textContent = `₹${product.price}`;
         productPrice.style.margin = "0 0 15px";
         productPrice.style.color = "#666";
         productPrice.style.fontSize = "18px";
@@ -204,7 +204,7 @@ const displayCart = () => {
              ${productImage.outerHTML} <!-- Display the image -->
              <p>${item.name} (${item.quantity})</p>
          </div>
-         <p>$${(item.price * item.quantity).toFixed(2)}</p>
+         <p>₹${(item.price * item.quantity).toFixed(2)}</p>
          <button onclick="removeFromCart(${item.id})" class="remove-btn">Remove</button>
      `;
 
@@ -253,7 +253,7 @@ filterBtn.addEventListener("click", () => {
 
         cartItem.innerHTML = `
             <p>${item.name} (${item.quantity})</p>
-            <p>$${item.price * item.quantity}</p>
+            <p>₹${item.price * item.quantity}</p>
         `;
 
         cartList.appendChild(cartItem);
