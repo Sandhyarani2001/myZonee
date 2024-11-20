@@ -167,6 +167,11 @@ const displayCart = () => {
         return;
     }
 
+    let totalPrice = 0;
+    let totalQuantity = 0;
+
+    
+
     cart.forEach((item) => {
         const cartItem = document.createElement("div");
         cartItem.className = "cart-item";
@@ -189,6 +194,11 @@ const displayCart = () => {
         cartItem.style.padding = "10px";
         cartItem.style.borderBottom = "5px solid #ddd";
 
+        // Calculate total price and quantity
+        const itemTotalPrice = item.price * item.quantity;
+        totalPrice += itemTotalPrice;
+        totalQuantity += item.quantity;
+
          // Add image element
          const productImage = document.createElement("img");
          productImage.src = item.image; // Image path from cart item
@@ -204,7 +214,7 @@ const displayCart = () => {
              ${productImage.outerHTML} <!-- Display the image -->
              <p>${item.name} (${item.quantity})</p>
          </div>
-         <p>₹${(item.price * item.quantity).toFixed(2)}</p>
+         <p>₹${itemTotalPrice.toFixed(2)}</p>
          <button onclick="removeFromCart(${item.id})" class="remove-btn">Remove</button>
      `;
 
@@ -228,6 +238,21 @@ const displayCart = () => {
 
         cartList.appendChild(cartItem);
     });
+
+
+    const averagePrice = totalQuantity > 0 ? totalPrice / totalQuantity : 0;
+
+    // Add total and average price to the cart
+    const totalsDiv = document.createElement("div");
+    totalsDiv.style.marginTop = "20px";
+    totalsDiv.style.textAlign = "right";
+
+    totalsDiv.innerHTML = `
+        <p><strong>Total Price:</strong> ₹${totalPrice.toFixed(2)}</p>
+        <p><strong>Average Price Per Item:</strong> ₹${averagePrice.toFixed(2)}</p>
+    `;
+
+    cartList.appendChild(totalsDiv);
 };
 
 // Filter Cart Items by Price
@@ -256,6 +281,17 @@ filterBtn.addEventListener("click", () => {
             <p>₹${item.price * item.quantity}</p>
         `;
 
+
+
+
         cartList.appendChild(cartItem);
+
+
+       
+
+
+
     });
+
+    
 });
