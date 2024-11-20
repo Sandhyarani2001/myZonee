@@ -11,7 +11,7 @@ let cart = JSON.parse(localStorage.getItem("cart")) || []; // Load cart from loc
 const addToCart = (productId) => {
     const product = products.find((item) => item.id === productId);
 
-    if (!product) return; 
+    if (!product) return;
 
     const existingProduct = cart.find((item) => item.id === productId);
 
@@ -170,7 +170,7 @@ const displayCart = () => {
     let totalPrice = 0;
     let totalQuantity = 0;
 
-    
+
 
     cart.forEach((item) => {
         const cartItem = document.createElement("div");
@@ -181,7 +181,7 @@ const displayCart = () => {
             cartItem.style.width = "100%"; // Mobile view
             cartItem.style.flexDirection = "column"; // Stack items vertically
             cartItem.style.alignItems = "flex-start";
-            
+
         } else {
             cartItem.style.width = "800px"; // Desktop view
             cartItem.style.flexDirection = "row";
@@ -199,17 +199,17 @@ const displayCart = () => {
         totalPrice += itemTotalPrice;
         totalQuantity += item.quantity;
 
-         // Add image element
-         const productImage = document.createElement("img");
-         productImage.src = item.image; // Image path from cart item
-         productImage.alt = item.name;
-         productImage.style.width = "50px";
-         productImage.style.height = "50px";
-         productImage.style.objectFit = "cover";
-         productImage.style.marginRight = "10px";
+        // Add image element
+        const productImage = document.createElement("img");
+        productImage.src = item.image; // Image path from cart item
+        productImage.alt = item.name;
+        productImage.style.width = "50px";
+        productImage.style.height = "50px";
+        productImage.style.objectFit = "cover";
+        productImage.style.marginRight = "10px";
 
 
-         cartItem.innerHTML = `
+        cartItem.innerHTML = `
          <div style="display: flex; align-items: center;">
              ${productImage.outerHTML} <!-- Display the image -->
              <p>${item.name} (${item.quantity})</p>
@@ -287,11 +287,31 @@ filterBtn.addEventListener("click", () => {
         cartList.appendChild(cartItem);
 
 
-       
+
 
 
 
     });
 
-    
+
+
+
+});
+
+// Clear Cart Function
+const clearCart = () => {
+    cart = []; // Reset cart to an empty array
+    saveCartToLocalStorage(); // Save the empty cart to localStorage
+    displayCart(); // Update the cart display
+    updateCartCount(); // Update the cart count
+};
+// Attach Clear Cart Function to the Button
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("clear-cart-btn").addEventListener("click", () => {
+        if (confirm("Are you sure you want to clear the cart?")) {
+            clearCart();
+        }
+    });
+
+    updateCartCount(); // Update cart count on page load
 });
